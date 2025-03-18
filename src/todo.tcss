@@ -1,0 +1,8 @@
+#task_title {
+    dock: top;
+    align: center top;
+}
+
+#task_description {
+    dock: bottom;
+}

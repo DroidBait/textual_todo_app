@@ -12,7 +12,7 @@ logging.basicConfig(
 )
 
 class ChecklistApp(App):
-
+    CSS_PATH = "todo.tcss"
     BINDINGS = [
         ("t", "toggle_dark", "Toggle dark mode"),
         ("q", "quit_app", "Quit"),

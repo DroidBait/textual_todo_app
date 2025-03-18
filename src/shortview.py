@@ -16,7 +16,7 @@ class ShortView(HorizontalGroup):
         self.description = None
 
     def compose(self) -> ComposeResult:
-        self.checkbox = Checkbox()
+        self.checkbox = Checkbox(id="task_check")
         self.heading = Label("Testing Text", id="task_title")
         self.description = Label("Sub Text", id="task_description")
         yield self.checkbox
