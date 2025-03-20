@@ -1,0 +1,19 @@
+#option_set {
+    content-align: center middle;
+}
+
+#btn_inc {
+    width: 2;
+}
+
+#display_time {
+    border: white tall;
+    padding: 0 0 0 4;
+    width: 33;
+}
+
+#clock_name {
+    text-align: center;
+    border: blue tall;
+    width: 33;
+}
