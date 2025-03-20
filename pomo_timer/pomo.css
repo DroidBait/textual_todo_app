@@ -17,3 +17,7 @@
     border: blue tall;
     width: 33;
 }
+
+#countdown_clock {
+    text-align: center;
+}

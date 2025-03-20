@@ -1,3 +1,6 @@
+#import time
+import asyncio
+
 from textual.app import App, ComposeResult
 from textual.widgets import ListView, ListItem, Checkbox, Header, Footer, Label, Button, Digits
 from textual.events import Key
@@ -5,6 +8,7 @@ import logging
 from textual.logging import TextualHandler
 from textual.containers import HorizontalGroup, VerticalScroll, Container, Vertical, Horizontal, HorizontalScroll
 from timer_option import TimerOption
+from datetime import timedelta
 
 class PomodoroTimerApp(App):
 
@@ -20,6 +24,7 @@ class PomodoroTimerApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
+        yield self.countdown_clock
         yield HorizontalScroll(
             
             self.short_break,
@@ -29,12 +34,29 @@ class PomodoroTimerApp(App):
         )
         #yield self.timer_break
 
-    def on_button_pressed(self, event: Button.Pressed) -> None:
+    async def run_countdown(self, time_to_run: int = 0) -> None:
+        """
+        Async function to countdown from time passed to function
+        """
+        for x in range(time_to_run):
+            elapsed_time = time_to_run - x
+            human_format_remaining = str(timedelta(seconds=elapsed_time))
+            self.countdown_clock.update(human_format_remaining)
+            #time.sleep(1)
+            await asyncio.sleep(1)
+        self.countdown_clock.update("0:00:00")
+
+    async def on_button_pressed(self, event: Button.Pressed) -> None:
         print(event.button.id)
         if event.button.id == "start_Short_Break":
-            print("Short break start clicked")
-        elif event.button.id == "start_long_break":
+            print(str(self.short_break.timer_length))
+            asyncio.create_task(self.run_countdown(self.short_break.timer_length))
+        elif event.button.id == "start_Long_Break":
             print("Long break clicked")
+            asyncio.create_task(self.run_countdown(self.long_break.timer_length))
+        elif event.button.id == "start_Work_Time":
+            print("Work time clicked")
+            asyncio.create_task(self.run_countdown(self.work_time.timer_length))
         
 
 if __name__ == "__main__":

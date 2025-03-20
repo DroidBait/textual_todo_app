@@ -9,8 +9,8 @@ from datetime import datetime, timedelta
 
 class IncDecButtons(HorizontalGroup):
     def compose(self) -> ComposeResult:
-        yield Button(label="Inc", variant="primary", id="btn_inc")
-        yield Button(label="dec", variant="primary", id="btn_dec") 
+        yield Button(label="Inc ↑", variant="primary", id="btn_inc")
+        yield Button(label="Dec ↓", variant="primary", id="btn_dec") 
 
 class TimerOption(VerticalGroup):
     display_time = reactive("")  # Reactive variable for the timer display
@@ -22,7 +22,6 @@ class TimerOption(VerticalGroup):
         self.clock = Digits(value="None", id="display_time")
         self.display_name = str(name.replace("_", " "))
         self.clock_name = Label(self.display_name, id="clock_name")
-        #self.clock_name.styles.text_align = "center"
         self.clock_name.styles.text_style = "bold underline"
         self.btn_start = Button("Start", variant="success", id=f"start_{name}")
 
