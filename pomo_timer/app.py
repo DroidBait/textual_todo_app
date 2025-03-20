@@ -2,7 +2,7 @@
 import asyncio
 
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Button, Digits
+from textual.widgets import Header, Footer, Button, Digits, Input
 from textual.containers import HorizontalScroll
 from timer_option import TimerOption
 from datetime import timedelta
@@ -10,6 +10,9 @@ from datetime import timedelta
 class PomodoroTimerApp(App):
 
     CSS_PATH="pomo.css"
+    BINDINGS=[
+        ("q", "close_app", "Quit")
+    ]
 
     def __init__(self) -> None:
         super().__init__()
@@ -17,11 +20,13 @@ class PomodoroTimerApp(App):
         self.work_time = TimerOption(default_length=25*60, name="Work_Time")
         self.long_break = TimerOption(default_length=600, name="Long_Break")
         self.countdown_clock = Digits("00:00:00", id="countdown_clock")
+        self.working_task = Input(placeholder="Enter task you are working on...", id="work_task")
 
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
         yield self.countdown_clock
+        yield self.working_task
         yield HorizontalScroll(
             
             self.short_break,
@@ -55,6 +60,8 @@ class PomodoroTimerApp(App):
             print("Work time clicked")
             asyncio.create_task(self.run_countdown(self.work_time.timer_length))
         
+    def action_close_app(self) -> None:
+        self.exit()
 
 if __name__ == "__main__":
     app = PomodoroTimerApp()
