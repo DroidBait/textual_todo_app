@@ -1,12 +1,9 @@
-#import time
+
 import asyncio
 
 from textual.app import App, ComposeResult
-from textual.widgets import ListView, ListItem, Checkbox, Header, Footer, Label, Button, Digits
-from textual.events import Key
-import logging
-from textual.logging import TextualHandler
-from textual.containers import HorizontalGroup, VerticalScroll, Container, Vertical, Horizontal, HorizontalScroll
+from textual.widgets import Header, Footer, Button, Digits
+from textual.containers import HorizontalScroll
 from timer_option import TimerOption
 from datetime import timedelta
 

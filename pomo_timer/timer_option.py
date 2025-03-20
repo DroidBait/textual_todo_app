@@ -1,11 +1,8 @@
-from textual.app import App, ComposeResult
+from textual.app import ComposeResult
 from textual.widgets import Label, Digits, Button
-from textual.events import Key
-import logging
-from textual.logging import TextualHandler
-from textual.containers import HorizontalGroup, VerticalScroll, VerticalGroup
+from textual.containers import HorizontalGroup, VerticalGroup
 from textual.reactive import reactive
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 class IncDecButtons(HorizontalGroup):
     def compose(self) -> ComposeResult:
