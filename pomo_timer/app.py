@@ -46,6 +46,7 @@ class PomodoroTimerApp(App):
             self.countdown_clock.update(human_format_remaining)
             #time.sleep(1)
             await asyncio.sleep(1)
+        self.notify("Timer complete", severity="information")
         self.countdown_clock.update("0:00:00")
 
     async def on_button_pressed(self, event: Button.Pressed) -> None:
