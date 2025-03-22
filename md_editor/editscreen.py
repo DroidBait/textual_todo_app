@@ -27,7 +27,7 @@ class EditMdFileScreen(Screen):
         self.btn_save = Button("Save", variant="primary", id="save_btn")
         #self.file_name = self.get_file_name_from_path(self.file_path) 
         #self.lbl_txt = f"Editing {self.file_name}"
-        self.lbl_title = Label("Maybe", id="title_lbl")
+        self.lbl_title = Label(str(self.file_path), id="title_lbl")
 
     def compose(self) -> ComposeResult:
         yield Header()

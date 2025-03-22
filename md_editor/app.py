@@ -48,12 +48,16 @@ class MarkDownEditor(App):
         with open(self.path_current_viewing_file) as f:
             file_text = f.read()
         try:
-            app.get_screen("edit_screen")
+            screen_found = app.get_screen("edit_screen")
+            print(type(screen_found))
+            if screen_found:
+                app.uninstall_screen("edit_screen")
+                app.install_screen(EditMdFileScreen(self.path_current_viewing_file, file_text), name="edit_screen")
         except KeyError as e:
             app.install_screen(EditMdFileScreen(self.path_current_viewing_file, file_text), name="edit_screen")
         self.edit_screen_view.set_new_file_path(self.path_current_viewing_file)
         app.push_screen("edit_screen")
-        self.notify("Testing when this appears")
+        #self.notify("Testing when this appears")
 
 if __name__ == "__main__":
     app = MarkDownEditor()
