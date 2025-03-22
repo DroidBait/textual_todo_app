@@ -21,3 +21,6 @@ class MdViewer(VerticalScroll):
         #await self.view_markdown_file.load(path)
         await self.view_markdown_file.go(path)
         self.refresh()
+
+    def get_file_text(self) -> str:
+        return self.view_markdown_file.document

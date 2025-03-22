@@ -12,33 +12,32 @@ class EditMdFileScreen(Screen):
         ("ctrl+s", "save_file", 'Save'),
     ]
 
-    def __init__(self, path:str, text: str):
+    def __init__(self, path:str):
         super().__init__()
         self.file_path = path
-        self.text = text
-        self.md_text = "No file currently loaded"
-        #try:
-        #    with open(self.file_path) as f:
-        #        self.md_text = f.read()
-        #except Exception as e:
-        #    print("something went wrong")
-        #    print(e)
+        self.md_text = ""
+        try:
+            with open(self.file_path) as f:
+                self.md_text = f.read()
+        except Exception as e:
+            print("something went wrong")
+            print(e)
         self.text_edit_area = TextArea(id="edit_text_area")
         self.btn_save = Button("Save", variant="primary", id="save_btn")
-        #self.file_name = self.get_file_name_from_path(self.file_path) 
-        #self.lbl_txt = f"Editing {self.file_name}"
-        self.lbl_title = Label("Maybe", id="title_lbl")
+        self.file_name = self.get_file_name_from_path(self.file_path) 
+        self.lbl_txt = f"Editing {self.file_name}"
+        self.lbl_title = Label(self.lbl_txt, id="title_lbl")
 
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
-        #print(str(type(self.lbl_title)))
+        print(str(type(self.lbl_title)))
         yield self.lbl_title
-        #print(str(type(self.text_edit_area)))
-        self.code_editor_view = self.text_edit_area.code_editor(self.text, language="markdown")
-        #yield self.code_editor_view
-        yield self.text_edit_area.code_editor(self.text, language="markdown")
-        #print(str(type(self.btn_save)))
+        print(str(type(self.text_edit_area)))
+        self.code_editor_view = self.text_edit_area.code_editor(self.md_text, language="markdown")
+        yield self.code_editor_view
+        #yield self.text_edit_area.code_editor(self.md_text, language="markdown")
+        print(str(type(self.btn_save)))
         yield self.btn_save
         #self.notify(str(self.file_path), severity="error")
 
