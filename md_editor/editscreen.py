@@ -1,6 +1,6 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Button, Digits, Input, DirectoryTree, TextArea, Label
-from textual.containers import HorizontalScroll, Horizontal
+from textual.containers import HorizontalScroll, Horizontal, Vertical
 from textual.screen import Screen
 
 
@@ -23,7 +23,7 @@ class EditMdFileScreen(Screen):
         #except Exception as e:
         #    print("something went wrong")
         #    print(e)
-        self.text_edit_area = TextArea(id="edit_text_area")
+        self.text_edit_area = TextArea.code_editor(id="edit_text_area")
         self.btn_save = Button("Save", variant="primary", id="save_btn")
         #self.file_name = self.get_file_name_from_path(self.file_path) 
         #self.lbl_txt = f"Editing {self.file_name}"
@@ -35,9 +35,9 @@ class EditMdFileScreen(Screen):
         #print(str(type(self.lbl_title)))
         yield self.lbl_title
         #print(str(type(self.text_edit_area)))
-        self.code_editor_view = self.text_edit_area.code_editor(self.text, language="markdown")
+        #self.code_editor_view = self.text_edit_area.code_editor(self.text, language="markdown")
         #yield self.code_editor_view
-        yield self.text_edit_area.code_editor(self.text, language="markdown")
+        yield self.text_edit_area.code_editor(self.text, language="markdown", id="code_edit_view")
         #print(str(type(self.btn_save)))
         yield self.btn_save
         #self.notify(str(self.file_path), severity="error")
@@ -61,7 +61,7 @@ class EditMdFileScreen(Screen):
     def set_new_file_path(self, path:str) -> None:
         self.file_path = path
         self.md_text = self.get_file_text(self.file_path)
-        self.text_edit_area.value = self.md_text
+        #self.text_edit_area.value = self.md_text
         #self.text_edit_area.code_editor(self.md_text, language="markdown")
 
     def get_file_name_from_path(self, path: str) -> str:
@@ -71,5 +71,25 @@ class EditMdFileScreen(Screen):
         else:
             return "not_found.md"
 
-   # def action_exit_edit(self) -> None:
-        
+    def save_file(self) -> None:
+        print("Text found")
+        print(self.text_edit_area)
+        print(self.text_edit_area.text)
+        edited_code = self.query_one("#code_edit_view")
+        #print(type(x))
+        #print("Get from x ")
+        #print(x.text)
+        with open(self.file_path, "w") as f:
+            #self.notify("Saving file?")
+            #print(self.text)
+            f.write(edited_code.text)
+        self.notify("File saved", severity="information")
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "save_btn":
+            try:
+                self.save_file()
+            except Exception as e:
+                print("Error")
+                print(e)
+                self.notify(str(f"Error saving file {e}"), severity="error")

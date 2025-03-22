@@ -1,5 +1,7 @@
-# Two (The second test file)
+# This is the new test doc 2
 
-This is just another test file
+- [ ] It's here to do something
 
-- [ ] Do something?
+Ey up duck
+
+Not sure how I will get this to auto refresh when the file is saved

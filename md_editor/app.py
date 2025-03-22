@@ -1,9 +1,19 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Button, Digits, Input, DirectoryTree
-from textual.containers import HorizontalScroll, Horizontal
+from textual.containers import HorizontalScroll, Horizontal, Vertical
 from fileviewer import FileBrowser
 from mdviewer import MdViewer
 from editscreen import EditMdFileScreen
+
+class AddNewFile(Vertical):
+    def __init__(self):
+        super().__init__()
+        self.input_file_name = Input(placeholder="Enter new file name", id="inp_file_name")
+        self.btn_create_file = Button("Create", variant="primary", id="btn_add_file")
+
+    def compose(self) -> ComposeResult:
+        yield self.input_file_name
+        yield self.btn_create_file
 
 
 class MarkDownEditor(App):
