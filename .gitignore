@@ -174,3 +174,5 @@ cython_debug/
 .pypirc
 
 .ds_store
+
+md_editor/notes/*
